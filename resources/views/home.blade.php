@@ -8,10 +8,13 @@
                     <div class="panel-heading">Dashboard</div>
 
                     <div class="panel-body">
-                        Working or not working - that is the question!
+                        Zaloguj sie zeby zobaczyc swoja liste todo!
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script src="{{ asset('js/todo.js') }}"></script>
+
 @endsection

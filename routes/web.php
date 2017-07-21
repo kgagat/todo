@@ -13,11 +13,12 @@
 
 
 Auth::routes();
-Route::get('/', 'TodoContoller@mainSite')->name('home');
-Route::get('/todo/{userId}', 'TodoController@getUserTodoList');
-Route::post('/todo/{userId}/addTodo', 'TodoController@addTodo');
-Route::post('/todo/{userId}/deleteTodo', 'TodoController@deleteTodo');
-Route::post('/todo/{userId}/doneTodo', 'TodoController@doneTodo');
+Route::get('/', 'TodoController@mainSite')->name('home');
+Route::get('/todoList', 'TodoController@todoList')->middleware('auth');
+Route::get('/todo', 'TodoController@getUserTodoList')->middleware('auth');
+Route::post('/todo/addTodo', 'TodoController@addTodo')->middleware('auth');
+Route::post('/todo/deleteTodo', 'TodoController@deleteTodo');
+Route::post('/todo/toggleTodo', 'TodoController@toggleTodo');
 
 
 //Route::get('/home', 'HomeController@index')->name('home');
