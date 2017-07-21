@@ -15,8 +15,9 @@
 Auth::routes();
 Route::get('/', 'TodoContoller@mainSite')->name('home');
 Route::get('/todo/{userId}', 'TodoController@getUserTodoList');
-Route::post('/todo/{userId}/addTodo', 'TodoController@addUserTodo');
-Route::post('/todo/{userId}/deleteTodo', 'TodoController@deleteUserTodo');
-Route::post('/todo/{userId}/doneTodo', 'TodoController@doneUserTodo');
+Route::post('/todo/{userId}/addTodo', 'TodoController@addTodo');
+Route::post('/todo/{userId}/deleteTodo', 'TodoController@deleteTodo');
+Route::post('/todo/{userId}/doneTodo', 'TodoController@doneTodo');
 
 
+//Route::get('/home', 'HomeController@index')->name('home');
