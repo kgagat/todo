@@ -26,13 +26,11 @@ class TodoController extends Controller
         $userId = Auth::id();
         $userTodoList = TodoList::getTodoListByUserId($userId);
 
-        return response()->json(
-                $userTodoList
-            );
-
+        return response()->json($userTodoList); // ORG
     }
 
-    public function addTodo (Request $request){
+    public function addTodo(Request $request)
+    {
 
         $newTodoDescription = $request->input('newTodo');
         $userId = Auth::id();
@@ -46,12 +44,13 @@ class TodoController extends Controller
         return response()->json([
             'id' => $newTodoId,
             'description' => $newTodoDescription,
-            'done' => 'no'
+            'done' => false
         ]);
 
     }
 
-    public function toggleTodo(Request $request){
+    public function toggleTodo(Request $request)
+    {
 
         $todoId = $request->input('todoId');
         $userId = Auth::id();
@@ -64,7 +63,8 @@ class TodoController extends Controller
 
     }
 
-    public function deleteTodo (Request $request){
+    public function deleteTodo(Request $request)
+    {
 
         $todoId = $request->input('todoId');
         $userId = Auth::id();

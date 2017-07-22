@@ -16,10 +16,12 @@ Vue.component('todoList', {
             });
         },
         deleteTodo: function () {
+            var self = this;
             axios.post('/todo/deleteTodo', {
                 'todoId': this.todoObj.id
             }).then(function (response) {
                 console.log(response);
+                self.$emit('delete', self.todoObj);
             });
 
         }
@@ -28,50 +30,58 @@ Vue.component('todoList', {
 
 
 var app = new Vue({
-    el: '#appTest',
-    data: {
-        todos: [],
-        todoText: ''
-
-    },
-    methods: {
-        addTodo: function () {
-            var self = this;
-
-            axios.post('/todo/addTodo', {
-                'newTodo': this.todoText
-            }).then(function (response) {
-                console.log(response);
-                self.todos.unshift({
-                        'id': response.data.id,
-                        'description': response.data.description,
-                        'done': response.data.done
-                    }
-                );
-                self.todoText = '';
-
-            }).catch(function (error) {
-                var errors = error.response.data.description[0];
-                console.log(errors);
-                self.error = errors;
-
-            });
-
+        el: '#appTest',
+        data: {
+            todos: [],
+            todoText: ''
 
         },
-        toggle: function () {
-            console.log('toggle?');
-        }
-    },
-    created: function () {
-        var self = this;
-        axios.get('/todo').then(function (response) {
-                console.log(response.data);
-                self.todos = response.data;
-            }
-        );
+        methods: {
+            addTodo: function () {
+                var self = this;
 
-    }
-});
+                axios.post('/todo/addTodo', {
+                    'newTodo': this.todoText
+                }).then(function (response) {
+                    console.log(response);
+                    self.todos.unshift({
+                            'id': response.data.id,
+                            'description': response.data.description,
+                            'done': response.data.done
+                        }
+                    );
+                    self.todoText = '';
+
+                }).catch(function (error) {
+                    var errors = error.response.data.description[0];
+                    console.log(errors);
+                    self.error = errors;
+
+                });
+
+
+            },
+            toggle: function () {
+                console.log('toggle?');
+            },
+            deleteTodo: function (todo) {
+                console.log('Should delete this todo: ', todo);
+                var index = this.todos.indexOf(todo);
+                if (index > -1) {
+                    this.todos.splice(index, 1);
+                }
+            }
+        },
+        created: function () {
+            var self = this;
+            axios.get('/todo').then(function (response) {
+                    console.log(response.data);
+                    self.todos = response.data;
+                }
+            );
+
+        }
+    })
+    ;
 
 

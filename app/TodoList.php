@@ -11,6 +11,10 @@ class TodoList extends Model
 
     static function getTodoListByUserId($userId)
     {
+        // [
+        //  { done: "true", .... }
+        // ]
+
         return self::select('id', 'description', 'done')->where('user_id', $userId)->get();
     }
 
@@ -33,10 +37,10 @@ class TodoList extends Model
             ->first();
 
         $actualEnum = $actualTodo->done;
-        if ($actualEnum == 'no') {
-            $actualTodo->done = 'yes';
+        if ($actualEnum == false) {
+            $actualTodo->done = true;
         } else {
-            $actualTodo->done = 'no';
+            $actualTodo->done = false;
         }
         $actualTodo->save();
 

@@ -16,6 +16,8 @@
                                         v-for="todo in todos"
                                         v-bind:todo-obj="todo"
                                         v-bind:key="todo.id"
+                                        :todoObj.sync="todo"
+                                        v-on:delete="deleteTodo"
                                         ></todo-list>
                             </table>
 

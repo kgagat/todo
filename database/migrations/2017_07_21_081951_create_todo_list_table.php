@@ -18,7 +18,7 @@ class CreateTodoListTable extends Migration
             $table->string('description', 255);
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->enum('done', ['no', 'yes']);
+            $table->boolean('done')->default(false);
         });
     }
 
