@@ -10,27 +10,45 @@
                     <div class="panel-body">
 
                         <div id="appTest">
+                            <div>@{{error}}</div>
+
+
 
                             <table class="table-responsive">
                                 <todo-list
                                         v-for="todo in todos"
                                         v-bind:todo-obj="todo"
                                         v-bind:key="todo.id"
-                                        :todoObj.sync="todo"
-                                        v-on:delete="deleteTodo"
+                                        :todo-obj.sync="todo"
+                                        v-on:usun="deleteTod"
                                         ></todo-list>
                             </table>
 
-
-                            <textarea v-model="todoText"></textarea>
-                            <button v-on:click="addTodo">Dodaj</button>
+                            <div v-if="isLogged" id="todoText">
+                                <textarea v-model="todoText" cols="53" rows="5"></textarea>
+                                <div id="addButton">
+                                    <button v-on:click="addTodo" class="btn btn-success" >Dodaj</button>
+                                </div>
+                            </div>
+                            <div v-else>
+                                Musisz sie
+                                <a href="login">zalogowac</a>
+                                zeby dodawac nowe zadania
+                            </div>
 
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
+
+    <script>
+
+        var czyZalogowany = @if($czyZalogowany) true @else false @endif;
+
+    </script>
 
     <script src="{{ asset('js/todo.js') }}"></script>
 

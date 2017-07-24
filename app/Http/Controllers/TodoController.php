@@ -16,8 +16,9 @@ class TodoController extends Controller
 
     public function todoList()
     {
+        $czyZalogowany = Auth::check();
 
-        return View('todoList');
+        return View('todoList', ['czyZalogowany' => $czyZalogowany]);
     }
 
     public function getUserTodoList()

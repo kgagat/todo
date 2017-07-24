@@ -1,9 +1,9 @@
 Vue.component('todoList', {
     props: ['todoObj'],
     template: '<tr>' +
-    '<td>{{todoObj.description}}</td>' +
-    '<input type="checkbox" v-on:click="toggle" v-model="todoObj.done" />' +
-    '<button v-on:click="deleteTodo">usun</button>' +
+    '<td><div class="round"><input id="todoObj.id" type="checkbox" v-on:click="toggle" v-model="todoObj.done" /><label for="todoObj.id"></label></div></td>' +
+    '<td class="textTodo">{{todoObj.description}}</td>' +
+    '<td><button v-on:click="deleteTodo" class="btn-xs btn-danger">delete</button></td>' +
     '</tr>',
 
     methods: {
@@ -21,7 +21,7 @@ Vue.component('todoList', {
                 'todoId': this.todoObj.id
             }).then(function (response) {
                 console.log(response);
-                self.$emit('delete', self.todoObj);
+                self.$emit('usun', self.todoObj);
             });
 
         }
@@ -33,13 +33,15 @@ var app = new Vue({
         el: '#appTest',
         data: {
             todos: [],
-            todoText: ''
+            todoText: '',
+            error: '',
+            isLogged: czyZalogowany
 
-        },
+},
         methods: {
             addTodo: function () {
                 var self = this;
-
+                this.error ='';
                 axios.post('/todo/addTodo', {
                     'newTodo': this.todoText
                 }).then(function (response) {
@@ -53,8 +55,9 @@ var app = new Vue({
                     self.todoText = '';
 
                 }).catch(function (error) {
-                    var errors = error.response.data.description[0];
-                    console.log(errors);
+                    console.log(error);
+                    var errors = error.response.data.newTodo[0];
+                    //console.log(errors);
                     self.error = errors;
 
                 });
@@ -64,7 +67,7 @@ var app = new Vue({
             toggle: function () {
                 console.log('toggle?');
             },
-            deleteTodo: function (todo) {
+            deleteTod: function (todo) {
                 console.log('Should delete this todo: ', todo);
                 var index = this.todos.indexOf(todo);
                 if (index > -1) {
