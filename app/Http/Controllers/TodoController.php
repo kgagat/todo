@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\OrderedList;
 use App\TodoList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -71,6 +72,22 @@ class TodoController extends Controller
         $userId = Auth::id();
 
         TodoList::deleteTodo($userId, $todoId);
+
+        return response()->json(
+            true
+        );
+
+    }
+
+    public function sortTodo (Request $request){
+
+        $userId = Auth::id();
+        $todoIds = $request->input('todosIds');
+
+        $string = implode(',', $todoIds);
+
+        OrderedList::where('user_id', $userId)
+            ->update(['ordered_list'=> $string]);
 
         return response()->json(
             true

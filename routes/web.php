@@ -17,8 +17,9 @@ Route::get('/', 'TodoController@mainSite')->name('home');
 Route::get('/todoList', 'TodoController@todoList');
 Route::get('/todo', 'TodoController@getUserTodoList')->middleware('auth');
 Route::post('/todo/addTodo', 'TodoController@addTodo')->middleware('auth');
-Route::post('/todo/deleteTodo', 'TodoController@deleteTodo');
-Route::post('/todo/toggleTodo', 'TodoController@toggleTodo');
+Route::post('/todo/deleteTodo', 'TodoController@deleteTodo')->middleware('auth');
+Route::post('/todo/toggleTodo', 'TodoController@toggleTodo')->middleware('auth');
+Route::post('/todo/sortTodo', 'TodoController@sortTodo')->middleware('auth');
 
 
 //Route::get('/home', 'HomeController@index')->name('home');

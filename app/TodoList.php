@@ -15,7 +15,27 @@ class TodoList extends Model
         //  { done: "true", .... }
         // ]
 
-        return self::select('id', 'description', 'done')->where('user_id', $userId)->get();
+
+        $totalTodoList = [];
+        $arrayUserTodo = [];
+
+        $userTodoList = self::select('id', 'description', 'done')
+            ->where('user_id', $userId)
+            ->get();
+
+        foreach($userTodoList as $todo){
+            $arrayUserTodo[$todo->id]=$todo;
+        }
+
+        $orderedList = OrderedList::getOrderedListByUserId($userId);
+
+        foreach($orderedList as $todoId){
+            $totalTodoList[]= $arrayUserTodo[$todoId];
+        }
+
+        return $totalTodoList;
+
+
     }
 
     static function addTodo($userId, $description)
@@ -25,6 +45,8 @@ class TodoList extends Model
         $newTodo->description = $description;
         $newTodo->user_id = $userId;
         $newTodo->save();
+
+        OrderedList::addOrderedTodo($userId, $newTodo->id);
 
         return $newTodo->id;
     }
@@ -53,6 +75,8 @@ class TodoList extends Model
         self::where('user_id', $userId)
             ->where('id', $todoId)
             ->delete();
+
+        OrderedList::deleteTodos($userId, $todoId);
 
     }
 

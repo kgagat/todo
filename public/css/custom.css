@@ -1,13 +1,11 @@
 #appTest{
     width: 400px;
-    border: 1px solid red;
     margin: auto;
 }
 
 #todoText {
     margin: auto;
-    border: 1px solid #000000;
-    margin-bottom: 30px;
+    margin-top: 30px;
 }
 
 #addButton {
@@ -39,7 +37,6 @@
 
 .textTodo {
     width: 300px;
-    border: 1px solid red;
     overflow: hidden;
 }
 
@@ -58,7 +55,12 @@
     left: 0;
     position: absolute;
     top: 0;
+    transition: 0.5s;
     width: 28px;
+}
+
+.round label:hover {
+    background-color: lightgrey;
 }
 
 .round label:after {
@@ -72,6 +74,7 @@
     position: absolute;
     top: 8px;
     transform: rotate(-45deg);
+    transition: 0.5s;
     width: 12px;
 }
 

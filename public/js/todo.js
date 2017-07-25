@@ -1,7 +1,7 @@
 Vue.component('todoList', {
     props: ['todoObj'],
     template: '<tr>' +
-    '<td><div class="round"><input id="todoObj.id" type="checkbox" v-on:click="toggle" v-model="todoObj.done" /><label for="todoObj.id"></label></div></td>' +
+    '<td><div class="round"><input v-bind:id="todoObj.id" type="checkbox" v-on:click="toggle" v-model="todoObj.done" /><label v-bind:for="todoObj.id"></label></div></td>' +
     '<td class="textTodo">{{todoObj.description}}</td>' +
     '<td><button v-on:click="deleteTodo" class="btn-xs btn-danger">delete</button></td>' +
     '</tr>',
@@ -37,11 +37,28 @@ var app = new Vue({
             error: '',
             isLogged: czyZalogowany
 
-},
+        },
         methods: {
+            zapiszSortowanie: function () {
+                console.log('Zapisz sortowanie na serwerku!');
+                var todosIds = [];
+                this.todos.forEach(function(todo){
+                    todosIds.push(todo.id);
+                    });
+                axios.post('/todo/sortTodo', {
+                    'todosIds': todosIds
+                }).then(function (response) {
+                    console.log(response.data);
+                });
+
+                    // AJAX tu!
+                // wysylam: ???
+                console.log(todosIds);
+
+            },
             addTodo: function () {
                 var self = this;
-                this.error ='';
+                this.error = '';
                 axios.post('/todo/addTodo', {
                     'newTodo': this.todoText
                 }).then(function (response) {

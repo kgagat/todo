@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Dashboard</div>
+                    <div class="panel-heading text-center">Twoj lista do zrobienia</div>
 
                     <div class="panel-body">
 
@@ -13,21 +13,24 @@
                             <div>@{{error}}</div>
 
 
-
                             <table class="table-responsive">
-                                <todo-list
-                                        v-for="todo in todos"
-                                        v-bind:todo-obj="todo"
-                                        v-bind:key="todo.id"
-                                        :todo-obj.sync="todo"
-                                        v-on:usun="deleteTod"
-                                        ></todo-list>
+                                <draggable :list="todos" class="dragArea" v-on:end="zapiszSortowanie">
+                                    <todo-list
+                                            v-for="todo in todos"
+                                            v-bind:todo-obj="todo"
+                                            v-bind:key="todo.id"
+                                            :todo-obj.sync="todo"
+                                            v-on:usun="deleteTod"
+                                            ></todo-list>
+                                </draggable>
+
                             </table>
 
                             <div v-if="isLogged" id="todoText">
-                                <textarea v-model="todoText" cols="53" rows="5"></textarea>
+                                <textarea v-model="todoText" cols="53" rows="2"></textarea>
+
                                 <div id="addButton">
-                                    <button v-on:click="addTodo" class="btn btn-success" >Dodaj</button>
+                                    <button v-on:click="addTodo" class="btn btn-success">Dodaj</button>
                                 </div>
                             </div>
                             <div v-else>
@@ -46,7 +49,8 @@
 
     <script>
 
-        var czyZalogowany = @if($czyZalogowany) true @else false @endif;
+        var czyZalogowany = @if($czyZalogowany) true
+        @else false @endif;
 
     </script>
 
