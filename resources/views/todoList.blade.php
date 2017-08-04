@@ -9,7 +9,7 @@
 
                     <div class="panel-body">
 
-                        <div>Test numer dwa</div>
+                        <div>Test numer trzy</div>
 
                         <div id="appTest">
                             <div>@{{error}}</div>
