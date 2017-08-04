@@ -13,7 +13,7 @@ class CreateTodoListTable extends Migration
      */
     public function up()
     {
-        Schema::create('todo_list', function (Blueprint $table) {
+        Schema::create('todo_list', function ( Blueprint $table) {
             $table->increments('id');
             $table->string('description', 255);
             $table->integer('user_id')->unsigned();
@@ -29,6 +29,6 @@ class CreateTodoListTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('todo_list');
+        Schema::dropIfExists( 'todo_list' );
     }
 }
