@@ -8,6 +8,7 @@ class TodoList extends Model
 {
     protected $table = 'todo_list';
     public $timestamps = false;
+    private $zmienna = 5;
 
     static function getTodoListByUserId($userId)
     {
